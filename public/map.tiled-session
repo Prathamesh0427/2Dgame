@@ -1,0 +1,50 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "map.json",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "map.json": {
+            "scale": 1.5,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 174.66666666666669,
+                "y": 149.33333333333331
+            }
+        },
+        "map.json#spritesheet": {
+            "scaleInDock": 1
+        },
+        "map.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 1
+        },
+        "spritesheet.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "D:/2d portfolio/public",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 27,
+    "openFiles": [
+        "map.json",
+        "spritesheet.tsx"
+    ],
+    "project": "map.tiled-project",
+    "recentFiles": [
+        "spritesheet.tsx",
+        "map.json",
+        "map.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
