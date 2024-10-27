@@ -1,5 +1,6 @@
 import { scaleFactor } from "./constants";
 import { k } from "./kaboomCxt";
+import { displayDialogue } from "./utils";
 
 k.loadSprite("spritesheet" , "./spritesheet.png",{
     sliceX : 39,
@@ -12,7 +13,7 @@ k.loadSprite("spritesheet" , "./spritesheet.png",{
         "idle-up":1014,
         "walk-up" : {from : 1014 , to : 1017 , loop : true , speed : 8},
     },
-});
+});//positing and movement using sprite sheet indexes  
 
 k.loadSprite("map" , "./map.png");
 
@@ -21,14 +22,14 @@ k.scene("main" , async () =>{
     const mapData = await (await fetch("./map.json")).json();
     const layers = mapData.layers;
 
-    const map = k.make([
+    const map = k.add([
         k.sprite("map"),
         k.pos(0),
         k.scale(scaleFactor)
     ]);
 
     const player =k.make([
-        k.sprite("spritesheet" , {anim :"idel-down"}) ,
+        k.sprite("spritesheet" , { anim:"idle-down"}) ,
         k.area({shape: new k.Rect(k.vec2(0,3) , 10 , 10)}),
         k.body(),
         k.anchor("center"),
@@ -55,12 +56,49 @@ k.scene("main" , async () =>{
                 ]);
 
                 if(boundary.name){
-                    player.onCollide(boundary.name)
+                    player.onCollide(boundary.name , () => {
+                        /*player.isInDialogue = true;
+                        displayDialogue("TODO" , () => (player.isInDialogue = false));*/
+                        if (!player.isInDialogue) {
+                            player.isInDialogue = true;
+                            displayDialogue("TODO", () => (player.isInDialogue = false));
+                        }
+                    });
+                }
+            }
+            continue;
+        }
+
+        if (layer.name === "spawnpoints") {
+            for (const entity of layer.objects) {
+                if (entity.name === "player") {
+                    player.pos = k.vec2(
+                        /*(map.pos.x + entity.x) * scaleFactor,
+                        (map.pos.y + entity.y) * scaleFactor */
+                        (entity.x) * scaleFactor,
+                        (entity.y) * scaleFactor
+                    );
+                    k.add(player);
+                    continue;
                 }
             }
         }
     }
 
-});
+    k.onUpdate(() => {
+        k.camPos(player.pos.x , player.pos.y + 100);
+    });
+
+
+    k.onMouseDown((mouseBtn) => {
+        if(mouseBtn !== "left" || player.isInDialogue) return;
+
+        const worldMousepos = k.toWorld(k.mousePos());
+        //player.moveTO(worldMousepos , player.speed);
+        player.move(k.vec2(worldMousepos.x - player.pos.x, worldMousepos.y - player.pos.y).unit().scale(player.speed));
+
+    });
+
+});//main function for game
  
 k.go("main");
