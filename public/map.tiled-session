@@ -8,11 +8,11 @@
     ],
     "fileStates": {
         "map.json": {
-            "scale": 1.5,
+            "scale": 2,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 174.66666666666669,
-                "y": 149.33333333333331
+                "x": 191,
+                "y": 65.5
             }
         },
         "map.json#spritesheet": {
